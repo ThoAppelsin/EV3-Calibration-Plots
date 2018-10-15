@@ -1,0 +1,134 @@
+====== Week 3: [TODO] ======
+
+This weeks assignment is about observing and knowing the limits of the tools we have in our hands.
+We get to experiment and see to which extent we can depend on the EV3 Sensors and Actuators.
+
+Calibration is a detailed process that should be carried out using extremely precise tools and in an
+extraordinarily meticulous fashion. The tape measures, rulers and protractors we buy from supplies
+stores are definitely not proper tools for a good calibration. The techniques we employ, also
+are very crude to be used in professional calibration procedures.
+
+Nonetheless, it is an assignment with benefits to give us more chance to experiment with the
+sensors and actuators of EV3, as well as to provide us the first-hand experience on how
+dependable they are, especially with their accuracy and limits.
+
+====== Mechanical Design ======
+
+We have made minor redesigns to our robot from its previous iterations. Most notably, we have changed
+the support structure for the ultrasonic sensor to make it face directly to the front, parallel to the ground.
+Previously, it was headed ever so slightly towards the floor, like most of the humans do with their heads.
+The purpose for this was to eliminate any calibratory measurement issues, which could arise if we were to measure
+the robot's distance from an obstacle over a plane parallel to the ground, although the ultrasonic sensor would
+measure an inclined distance.
+
+We were also breaking the connections from the sensors that were not in use in each section,
+to make sure that the robot dedicates all its power to the task in hand.
+
+Ultrasonic, color-light and gyro sensors were used during this experiment, along with the two
+regulated motors.
+
+====== Software Design ======
+
+We omit the exact code for the software carrying out the tasks for calibratory measurements,
+for that they are almost exactly the same with the previously used, and examplary codes for
+Basic Components.
+
+For the gyro sensor's part, we have used a modified version of gyro sensor's Basic Components code,
+and removed the turning behavior from it. For the motor's forward motion, we modified the Basic
+Components' ''MotorControl.java'', and removed everything but the forward motion from it.
+Similarly, we used the same base code for the rotational motion.
+
+We have prepared our calibratory codes to make EV3 robot perform all the necessary actions
+one after another, waiting for a button press in between. This way, we did not have to
+re-upload the code from our computers to it, but simply just reset its position and
+press the button on it between measurements. The way we prepared the code, it would perform
+each task 5 times, and then advance to the next stage, i.e. from speed 100 to 200,
+requiring us to upload code merely 5 times to the robot for the entire experiment.
+
+One important thing to note is that we have used ''stop(true)'' for stopping the motors
+whenever needed, to make the stopping methods work asynchronously than in a blocking fashion
+they do by default. The robot, otherwise, would wait for one of its wheels to stop before
+stopping the other, which could take more-than-necessary amount of time for non-mechanical reasons.
+
+====== Results and Discussion ======
+
+Here we will show you the results in regression lines, means and standard deviations.
+
+===== Sensor Calibration =====
+
+This part consists of calibratory measurements and results on ultrasonic, light-color and gyro sensor.
+
+==== Ultrasonic Sensor ====
+
+
+
+==== Discussion over the motor speed and acceleration ====
+
+We have noticed that although the motors have a electro-physical limit to the speed at which
+they may turn, they may be assigned with higher speeds which the robot retains.
+On top of that, we noticed that the acceleration parameter we set does not act upon the motor
+physically, but merely modifies the retained speed value.
+
+Let us assume that the physical speed limit for the robot is 1000.
+For the reasons above, the robot may be set to move forward at a speed 5000, and
+accelerate/decelerate at 1000 units/second rate. As a result, as the robot moves,
+it will not move at any different speed than if it were set to move at the speed 1000,
+because that's the electro-physical limit, but when the motors are told to stop,
+it will take 5 seconds for them to stop, while it would take only 1 second, had its
+speed been set to 1000 instead.
+
+This had been the most sensible explanation we had to the surprising outcomes we had
+on the Linear Motion part of this experiment. We could clearly hear that
+the motors were exerting same amount of force from the sound they were making,
+but the robot would proceed further than before when we increased the speed to 1500
+from the previous 1000. We then noticed that the robot clearly moves for longer
+than 5 seconds as we started testing and measuring for the higher speeds, 3000 and 5000,
+which brought us into thinking of the explanation we've made above.
+
+==== Discussion over the gyro sensor's planarity ====
+
+When we were making the gyro sensor's calibratory measurements, we noticed
+a worrying increase in the measured angles by the gyro sensor, as we were
+measuring the same angle for 5 consecutive times. This got us to thinking,
+and looking for the ways to reproduce and manipulate.
+
+We observed ourselves, specifically how we shuffle and shake the robot
+in between sensor readings. We were lifting the robot, and we were making
+a circular twist movement with our wrists at a fixed position in the air.
+We were making the twist in the clockwise direction, and the reading would
+then increase. We tried making the twist in the counter-clockwise direction,
+then we noticed that this time the reading would decrease. At all times,
+we were laying down the robot at the same orientation as before.
+
+Our explanation to this was that the gyro sensor's way of measuring its orientation
+was dependent on standing perpendicular against the gravity, i.e. parallel
+to the ground at all times. For a better understanding, we then thought of this
+extreme case:
+
+Assume that we were to put the robot at the edge of a hemi-circle shaped bowl,
+looking upwards. If we were to pivot it about the center of the circle, like
+we were doing with our wrists, and bring it all the way to the opposite side of the
+circular edge of the bowl, then the robot would start looking downwards.
+Essentially, half a twist at a 90 degree angle like the way we described above
+would be like a 180 degree turn from the robot's point of view, turned from looking
+above to looking down.
+
+By this reasoning, we did not only understand why the readings were changing tremendously
+despite the fact we were placing the robot at the exact same orientation, but it also
+started making sense that it changed the way it changed.
+
+For this experiment, we then started over and noted down the sensory measurements without
+lifting the robot as we twisted and turned the robot in between the readings.
+
+====== Conclusion ======
+
+''This section should provide what was explicitly asked for in the Lab sheet.''
+
+''This section should give a complete description of performance. It should provide the user with an analysis of what worked and what didn't, and should give critical suggestions for improvement, if there are any.''
+
+====== References ======
+
+''In this section:''
+  - ''Provide a complete list of all documents referenced elsewhere in the report''
+  - ''Identify each document by title, report number (if applicable), date, and publishing organization''
+  - ''Specify the sources from which the references can be obtained.''
