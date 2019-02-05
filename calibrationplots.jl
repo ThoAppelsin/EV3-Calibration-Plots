@@ -1,5 +1,6 @@
 using Plotly
-gr()
+using DataFrames, GLM
+gr();
 
 # Reading the data, structured
 
@@ -29,3 +30,13 @@ end
 data = hierarch(indent_lines)
 
 # Sensor Calibration
+
+sensor_data = [];
+for row in data["Sensor Calibration"], y in row[2:end]
+    push!(sensor_data, (row[1], y))
+end
+data["Sensor Calibration"] = sensor_data;
+
+
+
+# plot([counts["A"] counts["B"] counts["A"] + counts["B"]], label = ["A (×$(xA))" "B (×$(xB))" "Sum"], title = "Seed #$(seed)")
